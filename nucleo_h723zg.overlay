@@ -1,15 +1,30 @@
+/ {
+	aliases {
+		i2c0 = &i2c1;
+	};
+};
+
 &i2c1 {
-    ssd1306: ssd1306@3c {
-        compatible = "solomon,ssd1306fb";
-        reg = <0x3c>;
-        height = <64>;
-        width = <128>;
-        segment-offset = <0>;
-        page-offset = <0>;
-        display-offset = <0>;
-        multiplex-ratio = <63>;
-        prechargep = <0x22>;
-        com-invdir;
-        segment-remap;
-    };
+	compatible = "st,stm32h723zg-nucleo";
+	status = "okay";
+	clock-frequency = <I2C_BITRATE_FAST>;
+	sda-pin = <&i2c1_sda_pb9>;
+	scl-pin = <&i2c1_scl_pb8>;
+	
+	ssd1306@3c {
+		compatible = "solomon,ssd1306fb";
+		reg = <0x3c>;
+		label = "SSD1306";
+		height = <64>;
+		width  = <128>;
+		segment-offset  = <0>;
+		page-offset     = <0>;
+		display-offset  = <0>;
+		multiplex-ratio = <31>;
+		prechargep = <0x22>;
+		segment-remap;
+		com-sequential;
+		// com-invdir;
+		// segment-remap;
+	};
 };
